@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import "./eightball.css"
+import React, { useState } from 'react';
+import "./eightball.css";
 import choice from "./helpers";
 
 const initialMessage = 'Think of a Question';
@@ -26,31 +26,37 @@ const allAnswers = [
     { msg: "Very doubtful.", color: "red" },
 ];
 
-// answers = array of objects, with each object having a key for msg and color.
-function EightBall({answers = allAnswers}) {
+/** Gives random message and sets corresponding background color of eightball.
+ *
+ * Props:
+ * - answers: [{msg, color}...]
+ *
+ * State:
+ * - msg: string
+ * - color: backgroundColor
+ *
+ */
+
+function EightBall({ answers = allAnswers }) {
     // keep track of color and message
     const [message, setMessage] = useState(initialMessage);
     const [color, setColor] = useState('black');
+    const [answer, setAnswer] = useState({msg: initialMessage, color : "black"})
 
     // choose random message on click
     function handleClick() {
-        // get random message
-        const answer = choice(answers);
-        // set the message
-        setMessage(answer.msg);
-        // set the color
-        setColor(answer.color);
+        const randomAnswer = choice(answers);
+        setAnswer(randomAnswer);
     }
-
     // click changes color
     return (
         <div>
-        <button
-            className="magicEightBall"
-            onClick={handleClick}
-            style={{backgroundColor: color, color: 'white'}}>
-            {(message !== initialMessage) ? message : initialMessage}
-        </button>
+            <button
+                className="magicEightBall"
+                onClick={handleClick}
+                style={{ backgroundColor: answer.color, color: 'white' }}>
+                {answer.msg}
+            </button>
         </div>
     );
 }

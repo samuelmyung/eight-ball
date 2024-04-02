@@ -1,6 +1,6 @@
 "use strict";
 
-// takes an array, returns random element of array
+/** Returns random element from an array */
 function choice(items) {
   const chosen = Math.floor(Math.random() * items.length);
   return items[chosen];
